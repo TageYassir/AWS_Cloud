@@ -1,0 +1,7 @@
+apache-airflow-providers-postgres
+apache-airflow-providers-snowflake
+apache-airflow-providers-amazon
+
+# dbt
+dbt-core
+dbt-snowflake

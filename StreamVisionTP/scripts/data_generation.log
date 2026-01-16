@@ -1,0 +1,59 @@
+2026-01-05 16:48:04,632 - INFO - Connexion PostgreSQL �tablie avec succ�s
+2026-01-05 16:48:07,046 - INFO - D�but de la g�n�ration de 10000 utilisateurs...
+2026-01-05 16:48:07,303 - ERROR - Erreur fatale: ERREUR:  la valeur d'une cl� dupliqu�e rompt la contrainte unique � users_email_key �
+DETAIL:  La cl� � (email)=(hgim@example.org) � existe d�j�.
+Traceback (most recent call last):
+  File "C:\Users\yassir\StreamVisionTP\scripts\generate_streaming_data.py", line 1215, in main
+    generate_users(conn, n_users=10000)
+  File "C:\Users\yassir\StreamVisionTP\scripts\generate_streaming_data.py", line 223, in generate_users
+    execute_batch(cursor, query, users_data)
+  File "C:\Users\fftt7\PycharmProjects\host\.venv\lib\site-packages\psycopg2\extras.py", line 1216, in execute_batch
+    cur.execute(b";".join(sqls))
+psycopg2.errors.UniqueViolation: ERREUR:  la valeur d'une cl� dupliqu�e rompt la contrainte unique � users_email_key �
+DETAIL:  La cl� � (email)=(hgim@example.org) � existe d�j�.
+
+2026-01-05 16:49:44,180 - INFO - Connexion PostgreSQL �tablie avec succ�s
+2026-01-05 16:49:53,270 - INFO - V�rification des donn�es g�n�r�es...
+2026-01-05 16:49:53,290 - INFO - Connexion PostgreSQL ferm�e
+2026-01-05 16:52:15,345 - INFO - Connexion PostgreSQL établie avec succès
+2026-01-05 16:52:21,807 - INFO - Début de la génération de 10000 utilisateurs...
+2026-01-05 16:52:22,080 - ERROR - Erreur fatale: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(hgim@example.org) » existe déjà.
+Traceback (most recent call last):
+  File "C:\Users\yassir\StreamVisionTP\scripts\generate_streaming_data.py", line 1241, in main
+    generate_users(conn, n_users=10000)
+  File "C:\Users\yassir\StreamVisionTP\scripts\generate_streaming_data.py", line 245, in generate_users
+    execute_batch(cursor, query, users_data)
+  File "C:\Users\fftt7\PycharmProjects\host\.venv\lib\site-packages\psycopg2\extras.py", line 1216, in execute_batch
+    cur.execute(b";".join(sqls))
+psycopg2.errors.UniqueViolation: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(hgim@example.org) » existe déjà.
+
+2026-01-05 17:00:11,214 - INFO - Connexion PostgreSQL établie avec succès
+2026-01-05 17:00:18,454 - INFO - Connexion PostgreSQL fermée
+2026-01-05 17:00:28,388 - INFO - Connexion PostgreSQL établie avec succès
+2026-01-05 17:00:34,296 - WARNING - FLUSH DATABASE INITIÉ
+2026-01-05 17:00:34,523 - WARNING - 🔥 BASE DE DONNÉES COMPLÈTEMENT VIDÉE
+2026-01-05 17:00:34,523 - INFO - Connexion PostgreSQL fermée
+2026-01-05 17:00:46,426 - INFO - Connexion PostgreSQL établie avec succès
+2026-01-05 17:00:49,669 - INFO - Début de la génération de 10000 utilisateurs...
+2026-01-05 17:00:53,227 - INFO - ✅ 10000 utilisateurs générés avec succès
+2026-01-05 17:00:53,227 - INFO - Début de la génération de 5000 contenus...
+2026-01-05 17:00:54,810 - INFO - ✅ 5000 contenus générés avec succès
+2026-01-05 17:00:54,810 - INFO - Début de la génération de 100000 sessions de visionnage...
+2026-01-05 17:01:20,324 - INFO - ✅ 100000 sessions de visionnage générées avec succès
+2026-01-05 17:01:20,324 - INFO - Début de la génération de 30000 évaluations...
+2026-01-05 17:01:26,621 - INFO - ✅ 30000 évaluations générées avec succès
+2026-01-05 17:01:26,624 - INFO - Début de la génération de 20000 entrées de liste de visionnage...
+2026-01-05 17:01:28,728 - INFO - ✅ 20000 entrées de watchlist générées avec succès
+2026-01-05 17:01:28,731 - INFO - Début de la génération de 15000 événements d'abonnement...
+2026-01-05 17:01:31,108 - INFO - ✅ 15000 événements d'abonnement générés avec succès
+2026-01-05 17:01:31,109 - INFO - Début de la génération de 25000 requêtes de recherche...
+2026-01-05 17:01:34,488 - INFO - ✅ 25000 requêtes de recherche générées avec succès
+2026-01-05 17:01:34,489 - INFO - Début de la génération de 5000 épisodes et 30000 visionnages d'épisodes...
+2026-01-05 17:01:34,490 - INFO - Génération des épisodes...
+2026-01-05 17:01:37,147 - INFO - ✅ 5000 épisodes générés avec succès
+2026-01-05 17:01:37,147 - INFO - Génération des visionnages d'épisodes...
+2026-01-05 17:01:41,647 - INFO - ✅ 30000 visionnages d'épisodes générés avec succès
+2026-01-05 17:01:41,649 - INFO - Vérification des données générées...
+2026-01-05 17:01:41,727 - INFO - Connexion PostgreSQL fermée

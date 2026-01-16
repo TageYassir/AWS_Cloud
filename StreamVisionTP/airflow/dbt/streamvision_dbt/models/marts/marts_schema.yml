@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: mart_user_engagement
+    description: "User-level aggregated engagement metrics"
+    columns:
+      - name: engagement_date
+        description: "Truncated date of session_start (day)"
+        tests:
+          - not_null
+      - name: daily_active_users
+        description: "Count of distinct active users per day"
+        tests:
+          - not_null
+      - name: total_sessions
+        description: "Total number of sessions for the grouping"
+      - name: total_watch_time_seconds
+        description: "Total watch time in seconds"
+  - name: mart_content_performance
+    description: "Content performance marts"
+    columns:
+      - name: content_id
+        description: "Content identifier"
+        tests:
+          - not_null
+      - name: title
+        description: "Content title"
+      - name: total_watch_time_seconds
+        description: "Total watch time in seconds for the content"
+      - name: watch_time_rank
+        description: "Rank of content by total_watch_time_seconds (1 = highest)"
+        tests:
+          - not_null
+      - name: content_score
+        description: "Composite content score"
+  - name: mart_subscription_analytics
+    description: "Subscription event aggregates"
+    columns:
+      - name: user_id
+        description: "User identifier from stg_subscription_events"
+        tests:
+          - not_null
+      - name: event_type
+        description: "Type of subscription event (e.g., upgraded, downgraded, cancelled)"
+        tests:
+          - not_null
+      - name: event_date
+        description: "Timestamp of the event (TIMESTAMP)"
+        tests:
+          - not_null
+      - name: event_count
+        description: "Number of events for this user and event_type (windowed count)"

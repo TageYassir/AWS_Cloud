@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: "User dimension"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+      - name: plan
+        description: "User subscription plan"
+
+  - name: dim_content
+    description: "Content dimension"
+    columns:
+      - name: content_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_viewing_sessions
+    description: "Aggregated viewing sessions fact"
+
+  - name: fact_ratings
+    description: "Ratings fact"

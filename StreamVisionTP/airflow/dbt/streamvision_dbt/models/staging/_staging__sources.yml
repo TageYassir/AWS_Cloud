@@ -1,0 +1,267 @@
+version: 2
+
+sources:
+  - name: staging
+    database: streamvision_wh
+    schema: staging
+    description: "Tables de staging StreamVision chargées depuis S3"
+
+    tables:
+
+      # =========================
+      # STG_USERS
+      # =========================
+      - name: stg_users
+        description: "Utilisateurs de la plateforme StreamVision"
+        columns:
+          - name: id
+            description: "Identifiant unique de l'utilisateur"
+            tests: [unique, not_null]
+
+          - name: email
+            description: "Email de l'utilisateur"
+            tests: [unique, not_null]
+
+          - name: username
+            description: "Nom d'utilisateur"
+            tests: [unique, not_null]
+
+          - name: country
+            description: "Pays de l'utilisateur (ISO-3)"
+
+          - name: subscription_plan
+            description: "Type d'abonnement"
+
+          - name: is_active
+            description: "Utilisateur actif ou non"
+
+          - name: created_at
+            description: "Date de création du compte"
+
+          - name: _loaded_at
+            description: "Timestamp de chargement dans le DWH"
+
+      # =========================
+      # STG_CONTENT
+      # =========================
+      - name: stg_content
+        description: "Catalogue de contenus StreamVision"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: title
+            tests: [not_null]
+
+          - name: content_type
+            description: "movie / series / documentary"
+
+          - name: genre
+            description: "Genre principal"
+
+          - name: release_year
+            description: "Année de sortie"
+
+          - name: imdb_rating
+            description: "Note IMDb"
+
+          - name: is_original
+            description: "Contenu original StreamVision"
+
+          - name: _loaded_at
+            description: "Timestamp de chargement"
+
+      # =========================
+      # STG_VIEWING_SESSIONS
+      # =========================
+      - name: stg_viewing_sessions
+        description: "Sessions de visionnage des utilisateurs"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: user_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_users')
+                    field: id
+
+          - name: content_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_content')
+                    field: id
+
+          - name: session_start
+            description: "Début de la session"
+
+          - name: session_end
+            description: "Fin de la session"
+
+          - name: completion_rate
+            description: "Taux de complétion (%)"
+
+          - name: _loaded_at
+            description: "Timestamp de chargement"
+
+      # =========================
+      # STG_RATINGS
+      # =========================
+      - name: stg_ratings
+        description: "Évaluations et avis utilisateurs"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: user_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_users')
+                    field: id
+
+          - name: content_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_content')
+                    field: id
+
+          - name: rating
+            description: "Note donnée par l'utilisateur"
+
+          - name: rating_date
+            description: "Date de l'évaluation"
+
+      # =========================
+      # STG_WATCHLIST
+      # =========================
+      - name: stg_watchlist
+        description: "Liste de contenus à regarder"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: user_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_users')
+                    field: id
+
+          - name: content_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_content')
+                    field: id
+
+          - name: watched
+            description: "Indique si le contenu a été regardé"
+
+      # =========================
+      # STG_SUBSCRIPTION_EVENTS
+      # =========================
+      - name: stg_subscription_events
+        description: "Historique des événements d'abonnement"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: user_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_users')
+                    field: id
+
+          - name: event_type
+            description: "upgrade / downgrade / cancel / renew"
+
+          - name: event_date
+            description: "Date de l'événement"
+
+      # =========================
+      # STG_SEARCH_QUERIES
+      # =========================
+      - name: stg_search_queries
+        description: "Requêtes de recherche des utilisateurs"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: user_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_users')
+                    field: id
+
+          - name: clicked_content_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_content')
+                    field: id
+
+          - name: search_date
+            description: "Date de la recherche"
+
+      # =========================
+      # STG_EPISODES
+      # =========================
+      - name: stg_episodes
+        description: "Épisodes des séries TV"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: tv_show_id
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('staging', 'stg_content')
+                    field: id
+
+          - name: season_number
+            description: "Numéro de saison"
+
+          - name: episode_number
+            description: "Numéro d'épisode"
+
+      # =========================
+      # STG_EPISODE_VIEWING
+      # =========================
+      - name: stg_episode_viewing
+        description: "Visionnage des épisodes"
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+          - name: viewing_session_id
+            tests:
+              - relationships:
+                  to: source('staging', 'stg_viewing_sessions')
+                  field: id
+
+          - name: episode_id
+            tests:
+              - relationships:
+                  to: source('staging', 'stg_episodes')
+                  field: id
+
+          - name: user_id
+            tests:
+              - relationships:
+                  to: source('staging', 'stg_users')
+                  field: id
