@@ -1,11 +1,13 @@
 # AWS_Cloud
 
-## Team
-- Leader: Yassir Tagemouati
-- Members:
-  - Ilyass Bennani
-  - Bakr El Asmi
-  - Adil Habib
+## 🤝 Contributors
+
+| Avatar | Contributor 
+| :---: | :--- |
+| <img src="https://github.com/TageYassir.png" width="40px;"/> | **Yassir Tagemouati** [@yassir](https://github.com/TageYassir) |
+| <img src="https://github.com/AdilHABIB-9.png" width="40px;"/> | **Adil Habib** [@AdilHabib](https://github.com/AdilHABIB-9) |
+| <img src="https://github.com/BakrBuilds.png" width="40px;"/> | **Bakr El Asmi** [@BakrElAsmi](https://github.com/BakrBuilds) |
+| <img src="https://github.com/Ilyass1234-gif.png" width="40px;"/> | **Ilyass Bennani** [@IlyassBennani](https://github.com/Ilyass1234-gif) |
 
 ---
 
